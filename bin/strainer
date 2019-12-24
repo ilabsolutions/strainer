@@ -1,0 +1,9 @@
+#! /usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'strainer'
+require 'strainer/cli'
+require 'strainer/identity'
+
+Process.setproctitle Strainer::Identity.version_label
+Strainer::CLI.start

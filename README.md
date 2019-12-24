@@ -1,10 +1,14 @@
 <p align="center">
-  <img src="..png" alt=". Icon"/>
+  <img src="strainer.png" alt="Strainer Icon"/>
 </p>
 
-# .
+# Strainer
 
-[![Gem Version](https://badge.fury.io/rb/..svg)](http://badge.fury.io/rb/.)
+[![Gem Version](https://badge.fury.io/rb/strainer.svg)](http://badge.fury.io/rb/strainer)
+<!-- Replace <id> with Code Climate repository ID. Remove this comment afterwards. -->
+[![Code Climate Maintainability](https://api.codeclimate.com/v1/badges/<id>/maintainability)](https://codeclimate.com/github//strainer/maintainability)
+[![Code Climate Test Coverage](https://api.codeclimate.com/v1/badges/<id>/test_coverage)](https://codeclimate.com/github//strainer/test_coverage)
+[![Circle CI Status](https://circleci.com/gh//strainer.svg?style=svg)](https://circleci.com/gh//strainer)
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
@@ -37,7 +41,7 @@
 
 To install, run:
 
-    gem install .
+    gem install strainer
 
 
 ## Usage

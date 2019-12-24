@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "thor"
-require "thor/actions"
-require "runcom"
+require 'thor'
+require 'thor/actions'
+require 'runcom'
 
-module .
+module Strainer
   # The Command Line Interface (CLI) for the gem.
   class CLI < Thor
     include Thor::Actions
@@ -15,45 +15,45 @@ module .
       Runcom::Config.new Identity.name
     end
 
-    def initialize args = [], options = {}, config = {}
+    def initialize(args = [], options = {}, config = {})
       super args, options, config
       @configuration = self.class.configuration
-    rescue Runcom::Errors::Base => error
-      abort error.message
+    rescue Runcom::Errors::Base => e
+      abort e.message
     end
 
-    desc "-c, [--config]", "Manage gem configuration."
+    desc '-c, [--config]', 'Manage gem configuration.'
     map %w[-c --config] => :config
     method_option :edit,
-                  aliases: "-e",
-                  desc: "Edit gem configuration.",
+                  aliases: '-e',
+                  desc: 'Edit gem configuration.',
                   type: :boolean,
                   default: false
     method_option :info,
-                  aliases: "-i",
-                  desc: "Print gem configuration.",
+                  aliases: '-i',
+                  desc: 'Print gem configuration.',
                   type: :boolean,
                   default: false
     def config
       path = configuration.path
 
-      if options.edit? then `#{ENV["EDITOR"]} #{path}`
+      if options.edit? then `#{ENV['EDITOR']} #{path}`
       elsif options.info?
         path ? say(path) : say("Configuration doesn't exist.")
       else help :config
       end
     end
 
-    desc "-v, [--version]", "Show gem version."
+    desc '-v, [--version]', 'Show gem version.'
     map %w[-v --version] => :version
     def version
       say Identity.version_label
     end
 
-    desc "-h, [--help=COMMAND]", "Show this message or get help for a command."
+    desc '-h, [--help=COMMAND]', 'Show this message or get help for a command.'
     map %w[-h --help] => :help
-    def help task = nil
-      say and super
+    def help(task = nil)
+      say && super
     end
 
     private

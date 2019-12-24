@@ -1,2 +1,0 @@
-require "./identity"
-require "./cli"
