@@ -1,0 +1,38 @@
+AllCops:
+  TargetRubyVersion: 2.3.6
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/AbcSize:
+  Max: 20
+
+Style/RedundantReturn:
+  Enabled: false
+
+Style/SignalException:
+  Enabled: true
+  EnforcedStyle: 'semantic'
+
+Style/Documentation:
+  Enabled: false
+
+Lint/UnusedBlockArgument:
+  AllowUnusedKeywordArguments: true
+
+Style/GlobalVars:
+  Exclude:
+    - '**/*.rake'
+
+####################################################################
+# From https://github.com/bbatsov/rubocop/blob/master/.rubocop.yml #
+####################################################################
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/**/*.rb'
