@@ -11,8 +11,9 @@ module Strainer
       new.patch
     end
 
-    def initialize(custom_logger: Strainer::Railtie.config.logger)
-      @logger = custom_logger
+    def initialize
+      local_logger ||= Strainer::Railtie.config.logger
+      @logger = local_logger
     end
   end
 end

@@ -5,7 +5,7 @@ require 'ougai'
 module Strainer
   class FileLogger < ::Ougai::Logger
     include ActiveSupport::LoggerThreadSafeLevel
-    include LoggerSilence # required
+    include ActiveSupport::LoggerSilence # required
 
     def initialize(*args)
       super
@@ -15,6 +15,14 @@ module Strainer
     # default JSON format is OK
     def create_formatter
       ::Ougai::Formatters::Bunyan.new
+    end
+
+    def report(message:, exception:)
+    end
+
+    private
+
+    def extract_stack_info(backtrace)
     end
   end
 end
