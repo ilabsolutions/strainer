@@ -12,8 +12,7 @@ module Strainer
       when :active_record
         load_behaviors(
           Behaviors::ForcedReloading,
-          Behaviors::DelegateRelationToArray,
-          Behaviors::DelegateRelationToArel
+          Behaviors::RelationDelegationChanges
         )
       end
     end
