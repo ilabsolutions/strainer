@@ -12,7 +12,7 @@ module Strainer
         def method_missing(method_name, *args, &block)
           if HASH_INSTANCE.respond_to?(method_name)
             hash = to_h
-            strainer_log('PARAMS_AS_HASH')
+            strainer_log('PARAMS_AS_HASH', custom: { hash_method: method_name })
             hash.send(method_name, *args, &block)
           else
             super
