@@ -17,8 +17,10 @@ module Strainer
         `(?<function>.*)' # Matches "`block (3 levels) in <top (required)>'"
       \z}x.freeze
 
+    CODE_DIRS = %r{/(lib|spec|app|engines)/}.freeze
+
     def initialize(*args)
-      @cleaner = ActiveSupport::BacktraceCleaner.new
+      @cleaner = initialize_backtrace_cleaner
       super
       after_initialize if respond_to? :after_initialize
     end
@@ -31,9 +33,9 @@ module Strainer
     def report(message:, exception: nil, custom: {})
       report_type = exception.present? ? :error : :warn
       backtrace = exception.present? ? exception.backtrace : Thread.current.backtrace
-      found, file, line_number, function = extract_stack_info(backtrace)
+      found, trace, file, line_number, function = extract_stack_info(backtrace)
       custom_data = {
-        matched_stack_trace: found, file: file, line_number: line_number, function: function
+        matched_stack_trace: found, file: file, line_number: line_number, function: function, trace: trace
       }.merge(custom)
 
       send(report_type, message, custom_data: custom_data)
@@ -41,12 +43,26 @@ module Strainer
 
     private
 
-    def extract_stack_info(backtrace)
-      match = RUBY_STACK_REGEX.match(@cleaner.clean(backtrace).first)
-      found = match.present?
-      return false unless found
+    def initialize_backtrace_cleaner
+      cleaner = ActiveSupport::BacktraceCleaner.new
+      cleaner.add_filter { |line| line.gsub(Rails.root.to_s, '') }
+      cleaner.add_silencer { |line| line =~ %r{strainer/lib} }
+      cleaner.add_silencer { |line| line =~ %r{/\.rbenv} }
+      cleaner
+    end
 
-      return found, match[:file], match[:line], match[:function]
+    def clean_backtrace(backtrace)
+      stack_frames = @cleaner.clean(backtrace)
+      stack_frames.uniq { |frame| frame.split(CODE_DIRS)[1] }
+    end
+
+    def extract_stack_info(backtrace)
+      trace = clean_backtrace(backtrace)
+      match = RUBY_STACK_REGEX.match(trace.first)
+      found = match.present?
+      return false, trace unless found
+
+      return found, trace, match[:file], match[:line], match[:function]
     end
   end
 end

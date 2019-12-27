@@ -21,8 +21,12 @@ module Strainer
         include Strainer::Logable
 
         def reader(force_reload = false)
-          # TODO: Add logging here
-          strainer_log('FORCE_RELOAD')
+          if force_reload
+            strainer_log('FORCE_RELOAD',
+                         custom: {
+                           association_name: reflection.name
+                         })
+          end
           klass.uncached { reload } if force_reload && klass
           super()
         end
