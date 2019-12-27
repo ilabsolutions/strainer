@@ -19,6 +19,14 @@ module Strainer
 
     CODE_DIRS = %r{/(lib|spec|app|engines)/}.freeze
 
+    class BunyanFormatterWithSilencedTimestamp < ::Ougai::Formatters::Bunyan
+      def convert_time(data)
+        data[:time] = ''
+        data[:name] = ''
+        data[:pid] = ''
+      end
+    end
+
     def initialize(*args)
       @cleaner = initialize_backtrace_cleaner
       super
@@ -27,7 +35,7 @@ module Strainer
 
     # default JSON format is OK
     def create_formatter
-      ::Ougai::Formatters::Bunyan.new
+      BunyanFormatterWithSilencedTimestamp.new
     end
 
     def report(message:, exception: nil, custom: {})
