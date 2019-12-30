@@ -6,7 +6,7 @@ module Strainer
     attr_accessor :logger
 
     def self.init!
-      fail "behavior class: #{self} is not setup with a monkeypatch" unless method_defined? :patch
+      fail "behavior class: #{self} is not setup with a monkeypatch" unless method_defined? :apply_patch!
 
       new.apply_patch!
     end
