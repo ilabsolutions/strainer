@@ -9,7 +9,10 @@ module Strainer
         include Strainer::Logable
 
         def update(id = :all, attributes)
-          id = id.id if id.is_a?(ActiveRecord::Base)
+          if id.is_a?(ActiveRecord::Base)
+            id = id.id
+            strainer_log('PASSING_ACTIVERECORD', custom: { method: 'klass.update' })
+          end
 
           super(id, attributes)
         end
@@ -38,7 +41,7 @@ module Strainer
       end
 
       def apply_patch!
-        ActiveRecord::Base.prepend(EnablePassingActiveRecordInstancesToUpdate)
+        ActiveRecord::Base.extend(EnablePassingActiveRecordInstancesToUpdate)
         ActiveRecord::Relation.prepend(EnablePassingActiveRecordInstancesToFinders)
       end
     end
