@@ -39,7 +39,7 @@ module Strainer
 
       def apply_patch!
         ActiveRecord::Base.prepend(EnablePassingActiveRecordInstancesToUpdate)
-        ActiveRecord::FinderMethods.prepend(EnablePassingActiveRecordInstancesToFinders)
+        ActiveRecord::Relation.prepend(EnablePassingActiveRecordInstancesToFinders)
       end
     end
   end
