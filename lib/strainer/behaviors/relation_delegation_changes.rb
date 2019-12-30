@@ -44,7 +44,7 @@ module Strainer
         end
       end
 
-      def patch
+      def apply_patch!
         ActiveRecord::Delegation::ClassSpecificRelation.include(ReAddDeprecatedDelegations)
       end
     end

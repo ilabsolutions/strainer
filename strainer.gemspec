@@ -19,9 +19,9 @@ Gem::Specification.new do |spec|
     'bug_tracker_uri' => 'https://github.com/ilabsolutions/strainer/issues'
   }
 
-  spec.required_ruby_version = '>= 2.3.6'
+  spec.required_ruby_version = '>= 2.6.5'
   spec.add_dependency 'ougai', '~> 1.8.2'
-  spec.add_dependency 'rails', '>= 4.2', '< 6.1'
+  spec.add_dependency 'rails', '>= 6.0', '< 6.1'
   spec.add_dependency 'runcom', '~> 5.0'
   spec.add_dependency 'synvert', '~> 0.9.0'
   spec.add_dependency 'thor', '~> 0.20'

@@ -24,7 +24,7 @@ module Strainer
         end
       end
 
-      def patch
+      def apply_patch!
         ActionController::Parameters.prepend BehavesHashlike
       end
     end

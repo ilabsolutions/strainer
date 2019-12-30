@@ -32,7 +32,7 @@ module Strainer
         end
       end
 
-      def patch
+      def apply_patch!
         ActiveRecord::Associations::Builder::Association.singleton_class.prepend(DefineReaders)
         ActiveRecord::Associations::SingularAssociation.prepend Reader
         ActiveRecord::Associations::CollectionAssociation.prepend Reader

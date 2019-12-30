@@ -8,7 +8,7 @@ module Strainer
     def self.init!
       fail "behavior class: #{self} is not setup with a monkeypatch" unless method_defined? :patch
 
-      new.patch
+      new.apply_patch!
     end
 
     def initialize
