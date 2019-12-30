@@ -19,12 +19,19 @@ module Strainer
         include Strainer::Logable
 
         def exists?(conditions = :none)
-          conditions = conditions.id if conditions.is_a?(ActiveRecord::Base)
+          if conditions.is_a?(ActiveRecord::Base)
+            conditions = conditions.id
+            strainer_log('PASSING_ACTIVERECORD', custom: { method: 'exists?' })
+          end
+
           super(conditions)
         end
 
         def find_one(id)
-          id = id.id if id.is_a?(ActiveRecord::Base)
+          if id.is_a?(ActiveRecord::Base)
+            id = id.id
+            strainer_log('PASSING_ACTIVERECORD', custom: { method: 'find_one' })
+          end
 
           super(id)
         end
