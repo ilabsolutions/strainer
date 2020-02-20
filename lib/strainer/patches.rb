@@ -13,7 +13,8 @@ module Strainer
         load_behaviors(
           Behaviors::ForcedReloading,
           Behaviors::RelationDelegationChanges,
-          Behaviors::FinderChanges
+          Behaviors::FinderChanges,
+          Behaviors::RelationQueryMethodChanges
         )
       end
     end
