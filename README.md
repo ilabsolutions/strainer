@@ -14,10 +14,7 @@
 
 ## Table of Contents
 
-  - [Features](#features)
-  - [Screencasts](#screencasts)
   - [Requirements](#requirements)
-  - [Setup](#setup)
   - [Usage](#usage)
   - [Tests](#tests)
   - [Versioning](#versioning)
@@ -29,28 +26,68 @@
 
 <!-- Tocer[finish]: Auto-generated, don't remove. -->
 
-## Features
-
-## Screencasts
-
 ## Requirements
 
 1. [Ruby 2.6.5](https://www.ruby-lang.org)
-
-## Setup
-
-To install, run:
-
-    gem install strainer
+2. [Rails 6.x]
 
 
 ## Usage
 
+To install add the gem in your Gemfile.
+This will downgrade some rails behavior to look like Rails 4 (for which behaviors are downgraded see lib/strainer/behaviors)
+
+Adding a behavior:
+
+Basic behavior looks like this (needs to be place in lib/strainer/behaviors):
+
+```
+module Strainer
+  module Behaviors
+    # Comment describng the override
+    class {{BehaviorClassName}} < Strainer::RuntimeBehavior
+      module {{ModuleThatImplementsOverride}}
+        include Strainer::Logable
+
+        def uniq(value = true)
+          strainer_log('RELATION_UNIQ', custom: { relation_method: 'uniq' })
+          distinct(value)
+        end
+
+      end
+
+      def apply_patch!
+        # Place code here that patches rails behavior
+        # eg. to add this behavior to ActiveRecord::Relation do:
+        # ActiveRecord::Relation.include({{ModuleThatImplementsOverride}})
+      end
+    end
+  end
+end
+
+# To enable the patch onload of the railtie add this behavior in patches.rb
+
+def self.setup!(component)
+  case component
+  when :action_controller
+    load_behaviors Behaviors::ParametersAsHash
+  when :active_record
+    load_behaviors(
+      Behaviors::ForcedReloading,
+      Behaviors::RelationDelegationChanges,
+      Behaviors::FinderChanges,
+      Behaviors::RelationQueryMethodChanges,
+      {{*Behaviors::BehaviorClassName*}},
+    )
+  end
+end
+
+
+```
+
 ## Tests
 
-To test, run:
-
-    bundle exec rake
+TBD
 
 ## Versioning
 
