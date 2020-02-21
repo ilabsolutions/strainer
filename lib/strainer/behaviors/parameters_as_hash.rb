@@ -11,6 +11,7 @@ module Strainer
 
         def method_missing(method_name, *args, &block)
           if HASH_INSTANCE.respond_to?(method_name)
+            # create a hash copy so that unsafe methods can't be called on the internal hash.
             hash = to_h
             strainer_log('PARAMS_AS_HASH', custom: { hash_method: method_name })
             hash.send(method_name, *args, &block)
