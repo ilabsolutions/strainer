@@ -6,6 +6,7 @@ module Strainer
   module Behaviors
     # This module re-adds the 'aliases' (uniq and uniq!) on an active record relation that were removed in rails 6
     # It logs usages so that the code can be later corrected.
+    # eg User.where(conditions).admins.uniq
     class RelationQueryMethodChanges < Strainer::RuntimeBehavior
       module ReAliasUniqToDistinct
         include Strainer::Logable

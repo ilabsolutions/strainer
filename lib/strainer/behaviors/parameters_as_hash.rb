@@ -4,6 +4,9 @@ require 'active_record'
 
 module Strainer
   module Behaviors
+    # Allows Hash methods to be called on an ActionController::Parameters object which no longer
+    # works in rails 6 since it doesn't descend from Hash.
+    # params.merge(:params)
     class ParametersAsHash < Strainer::RuntimeBehavior
       module BehavesHashlike
         include Strainer::Logable

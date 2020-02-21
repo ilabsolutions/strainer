@@ -4,6 +4,8 @@ require 'active_record'
 
 module Strainer
   module Behaviors
+    # Allows reloading relations/association like company.employees(true) which works in
+    # rails 4 but doesn't in rails 6. Rails 6 way is to call company.employees.reload
     class ForcedReloading < Strainer::RuntimeBehavior
       module DefineReaders
         # this method changed in 5.2.0 to strip arguments

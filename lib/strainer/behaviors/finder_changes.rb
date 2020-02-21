@@ -4,6 +4,8 @@ require 'active_record'
 
 module Strainer
   module Behaviors
+    # Enables passing activerecord objects to finders which no longer works in Rails 6
+    # eg. Profile.exists?(profile)
     class FinderChanges < Strainer::RuntimeBehavior
       module EnablePassingActiveRecordInstancesToUpdate
         include Strainer::Logable

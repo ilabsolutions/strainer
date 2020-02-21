@@ -11,7 +11,8 @@ module Strainer
     #   :shuffle!, :slice!, :sort!, :sort_by!, :delete_if,
     #   :keep_if, :pop, :shift, :delete_at, :select!
     # ].to_set
-
+    # This behavior makes AR relations behave like arrays.
+    # eg. company.employees.compact
     class RelationDelegationChanges < Strainer::RuntimeBehavior
       module ReAddDeprecatedDelegations
         include Strainer::Logable
