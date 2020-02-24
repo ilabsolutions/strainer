@@ -44,13 +44,15 @@ Basic behavior looks like this (needs to be place in lib/strainer/behaviors):
 ```
 module Strainer
   module Behaviors
-    # Comment describng the override
+    # Comment describing the override
     class {{BehaviorClassName}} < Strainer::RuntimeBehavior
       module {{ModuleThatImplementsOverride}}
         include Strainer::Logable
 
         def uniq(value = true)
-          strainer_log('RELATION_UNIQ', custom: { relation_method: 'uniq' })
+          # The strainer_log method is used to dump data identifying the kind of rails
+          # incompatibility and the source location along with extra payload data
+          strainer_log('BEHAVIOR_IDENTIFIER', custom: { CUSTOM_DATA_KEY: 'CUSTOM_DATA_VALUE' })
           distinct(value)
         end
 
