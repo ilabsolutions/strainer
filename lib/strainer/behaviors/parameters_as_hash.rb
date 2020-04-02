@@ -26,10 +26,29 @@ module Strainer
         def respond_to_missing?(method_name, include_private = false)
           HASH_INSTANCE.respond_to?(method_name) || super
         end
+
+        def is_a?(klass)
+          strainer_log('PARAMS_AS_HASH', custom: { hash_method: :is_a? }) if klass == ::Hash
+
+          klass == ::Hash || super
+        end
+        alias_method :kind_of?, :is_a?
+      end
+
+      module ReConvertValue
+        include Strainer::Logable
+
+        def convert_value(value, options = {}) # :doc:
+          return value if value.is_a? ActionController::Parameters
+
+          super
+        end
+        private :convert_value
       end
 
       def apply_patch!
         ActionController::Parameters.prepend BehavesHashlike
+        ActiveSupport::HashWithIndifferentAccess.prepend ReConvertValue
       end
     end
   end
