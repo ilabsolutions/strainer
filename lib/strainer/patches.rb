@@ -11,6 +11,7 @@ module Strainer
         load_behaviors Behaviors::ParametersAsHash
       when :active_record
         load_behaviors(
+          Behaviors::AbstractMysqlAdapter,
           Behaviors::ForcedReloading,
           Behaviors::RelationDelegationChanges,
           Behaviors::FinderChanges,

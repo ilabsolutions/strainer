@@ -4,6 +4,7 @@ require 'spec_helper'
 
 module MissingConfigurationMethods
   def ancestors; end
+
   def logger
     Strainer::FileLogger.new 'spec/fixtures/files/test.log'
   end
@@ -19,12 +20,12 @@ module Strainer
   module Behaviors
     RSpec.describe ParametersAsHash do
       before do
-        Rails::Railtie::Configuration.include MissingConfigurationMethods        
+        Rails::Railtie::Configuration.include MissingConfigurationMethods
         described_class.new.apply_patch!
       end
 
       context '#is_a?' do
-        let(:params) { ActionController::Parameters.new(records: { datetime: { date: '10/10/10', time: '10:10'} }) }
+        let(:params) { ActionController::Parameters.new(records: { datetime: { date: '10/10/10', time: '10:10' } }) }
 
         context 'when Hash' do
           it { expect(params.is_a?(Hash)).to be true }
