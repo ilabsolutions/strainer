@@ -42,9 +42,22 @@ module Strainer
         end
       end
 
+      module EnablePassingActiveRecordInstancesToUpdateAll
+        def update_all(updates)
+          if updates.is_a?(Hash)
+            updates.transform_values! do |value|
+              value.is_a?(ActiveRecord::Base) ? value.id : value
+            end
+          end
+
+          super(updates)
+        end
+      end
+
       def apply_patch!
         ActiveRecord::Base.extend(EnablePassingActiveRecordInstancesToUpdate)
         ActiveRecord::Relation.prepend(EnablePassingActiveRecordInstancesToFinders)
+        ActiveRecord::Relation.prepend(EnablePassingActiveRecordInstancesToUpdateAll)
       end
     end
   end
