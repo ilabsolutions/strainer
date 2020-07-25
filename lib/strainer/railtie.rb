@@ -22,7 +22,7 @@ module Strainer
         config.logger = FileLogger.new(log_file_path)
       end
       %i[action_controller active_record].each do |component|
-        ActiveSupport.on_load(component) do
+        ActiveSupport.on_load(component, run_once: true) do
           Strainer::Patches.setup!(component)
         end
       end
