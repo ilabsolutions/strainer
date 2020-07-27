@@ -33,10 +33,6 @@ module Strainer
           klass == ::Hash || super
         end
         alias_method :kind_of?, :is_a?
-
-        def ===(klass)
-          klass === ::Hash || super
-        end
       end
 
       module ReConvertValue
