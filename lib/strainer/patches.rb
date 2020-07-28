@@ -8,14 +8,17 @@ module Strainer
     def self.setup!(component)
       case component
       when :action_controller
-        load_behaviors Behaviors::ParametersAsHash
+        load_behaviors(
+          Behaviors::ParametersAsHash
+        )
       when :active_record
         load_behaviors(
           Behaviors::AbstractMysqlAdapter,
           Behaviors::ForcedReloading,
           Behaviors::RelationDelegationChanges,
           Behaviors::FinderChanges,
-          Behaviors::RelationQueryMethodChanges
+          Behaviors::RelationQueryMethodChanges,
+          Behaviors::ActiveRecordCallbackChanges
         )
       end
     end

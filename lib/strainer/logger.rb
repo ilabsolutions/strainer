@@ -30,7 +30,7 @@ module Strainer
     def initialize(*args)
       @cleaner = initialize_backtrace_cleaner
       super
-      after_initialize if respond_to? :after_initialize
+      after_initialize if Rails::VERSION::MAJOR < 6 && respond_to?(:after_initialize)
     end
 
     # default JSON format is OK
