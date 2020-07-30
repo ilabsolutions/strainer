@@ -24,9 +24,10 @@ module Strainer
           CALLBACKS.each do |type, hooks|
             hooks.each do |hook|
               callback_name = "#{type}_#{hook}"
+              next if %I[around after].include?(type)
+
               define_singleton_method(callback_name) do |*args, **options, &block|
                 callback_arg = args[0]
-                binding.pry if block&.source_location&.first&.include?("equipment.rb")
                 args[0] = wrap_callback(callback_arg) if can_intercept_callback?(callback_arg)
                 wrapped_block = wrap_callback_proc(block) if can_intercept_callback_block?(block)
                 super(*args, **options, &wrapped_block)
@@ -68,7 +69,7 @@ module Strainer
 
           def wrap_callback_proc(block)
             proc do
-              callback_result = instance_exec(&block)
+              callback_result = instance_exec(self, &block)
               strainer_log('CALLBACK_HALTING_ON_FALSE', custom: { source: 'callback proc' }) if callback_result == false
               throw(:abort) if callback_result == false
             end
