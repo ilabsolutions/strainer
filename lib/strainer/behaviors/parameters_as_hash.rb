@@ -46,9 +46,20 @@ module Strainer
         private :convert_value
       end
 
+      module AddTripleEquals
+        include Strainer::Logable
+
+        def ===(obj)
+          obj_is_param = ::ActionController::Parameters === obj
+          strainer_log('PARAMS_AS_HASH', custom: { hash_method: '===' }) if obj_is_param == true
+          obj_is_param || super
+        end
+      end
+
       def apply_patch!
         ActionController::Parameters.prepend BehavesHashlike
         ActiveSupport::HashWithIndifferentAccess.prepend ReConvertValue
+        Hash.extend AddTripleEquals
       end
     end
   end
