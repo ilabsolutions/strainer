@@ -12,26 +12,16 @@ module Strainer
       module RedefineCallbacks
         extend ActiveSupport::Concern
 
-        CALLBACKS = {
-          before: %I[save create update destroy validation],
-          after: %I[save create update destroy find initialize touch destroy validation],
-          around: %I[save create update destroy]
-        }.freeze
-
+        BEFORE_CALLBACKS = %I[before_save before_create before_update before_destroy].freeze
         METHOD_PREFIX = '__strainer_wrapped_method_'
 
         included do
-          CALLBACKS.each do |type, hooks|
-            hooks.each do |hook|
-              callback_name = "#{type}_#{hook}"
-              next if %I[around after].include?(type)
-
-              define_singleton_method(callback_name) do |*args, **options, &block|
-                callback_arg = args[0]
-                args[0] = wrap_callback(callback_arg) if can_intercept_callback?(callback_arg)
-                wrapped_block = wrap_callback_proc(block) if can_intercept_callback_block?(block)
-                super(*args, **options, &wrapped_block)
-              end
+          BEFORE_CALLBACKS.each do |hook|
+            define_singleton_method(hook) do |*args, **options, &block|
+              callback_arg = args[0]
+              args[0] = wrap_callback(callback_arg) if can_intercept_callback?(callback_arg)
+              wrapped_block = wrap_callback_proc(block) if can_intercept_callback_block?(block)
+              super(*args, **options, &wrapped_block)
             end
           end
 
