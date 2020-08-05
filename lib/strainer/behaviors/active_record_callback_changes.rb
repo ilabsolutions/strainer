@@ -59,7 +59,7 @@ module Strainer
 
           def wrap_callback_proc(block)
             proc do
-              callback_result = instance_exec(&block)
+              callback_result = block.arity.zero? ? instance_exec(&block) : instance_exec(self, &block)
               strainer_log('CALLBACK_HALTING_ON_FALSE', custom: { source: 'callback proc' }) if callback_result == false
               throw(:abort) if callback_result == false
             end
