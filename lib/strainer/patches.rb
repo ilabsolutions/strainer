@@ -18,7 +18,7 @@ module Strainer
           Behaviors::RelationDelegationChanges,
           Behaviors::FinderChanges,
           Behaviors::RelationQueryMethodChanges,
-          Behaviors::ActiveRecordCallbackChanges
+          Behaviors::ActiveRecordBeforeCallbackChanges
         )
       end
     end

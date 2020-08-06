@@ -8,7 +8,7 @@ module Strainer
     # This mimics rails 4 behavior. In rails > 5 the way to halt a callback chain
     # is to throw :abort. In rails 4 one could return false from a callback to terminate
     # the callback chain.
-    class ActiveRecordCallbackChanges < Strainer::RuntimeBehavior
+    class ActiveRecordBeforeCallbackChanges < Strainer::RuntimeBehavior
       module RedefineCallbacks
         extend ActiveSupport::Concern
 
