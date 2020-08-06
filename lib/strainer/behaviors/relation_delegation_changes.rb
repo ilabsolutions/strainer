@@ -5,7 +5,8 @@ require 'active_record'
 module Strainer
   module Behaviors
     # THIS PATCH IS UNSAFE FOR PRODUCTION!!!
-    # I have removed the check for BLACKLISTED_ARRAY_METHODS since we want to catch all possible array methods being called
+    # I have removed the check for BLACKLISTED_ARRAY_METHODS since we want to
+    # catch all possible array methods being called
     # BLACKLISTED_ARRAY_METHODS = [
     #   :compact!, :flatten!, :reject!, :reverse!, :rotate!, :map!,
     #   :shuffle!, :slice!, :sort!, :sort_by!, :delete_if,

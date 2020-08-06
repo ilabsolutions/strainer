@@ -32,25 +32,26 @@ module Strainer
 
           klass == ::Hash || super
         end
-        alias_method :kind_of?, :is_a?
+        alias kind_of? is_a?
       end
 
       module ReConvertValue
         include Strainer::Logable
 
-        def convert_value(value, options = {}) # :doc:
+        private
+
+        def convert_value(value, options = {})
           return value if value.is_a? ActionController::Parameters
 
           super
         end
-        private :convert_value
       end
 
       module AddTripleEquals
         include Strainer::Logable
 
         def ===(obj)
-          obj_is_param = ::ActionController::Parameters === obj
+          obj_is_param = ::ActionController::Parameters === obj # rubocop:disable Style/CaseEquality since this tests a monkeypatch
           strainer_log('PARAMS_AS_HASH', custom: { hash_method: '===' }) if obj_is_param == true
           obj_is_param || super
         end

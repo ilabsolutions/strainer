@@ -65,7 +65,9 @@ module Strainer
           klazz_with_function_callback
         ].each do |klazz|
           it("#{klazz} fails with save") { expect(send(klazz).new.save).to be(false) }
-          it("#{klazz} raises with save!") { expect{ send(klazz).new.save! }.to raise_exception(ActiveRecord::RecordNotSaved) }
+          it("#{klazz} raises with save!") do
+            expect { send(klazz).new.save! }.to raise_exception(ActiveRecord::RecordNotSaved)
+          end
         end
       end
     end

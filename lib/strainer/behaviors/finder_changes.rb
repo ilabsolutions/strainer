@@ -10,7 +10,7 @@ module Strainer
       module EnablePassingActiveRecordInstancesToUpdate
         include Strainer::Logable
 
-        def update(id = :all, attributes)
+        def update(id = :all, attributes) # rubocop:disable Style/OptionalArguments this is to match ActiveRecord's signature
           if id.is_a?(ActiveRecord::Base)
             id = id.id
             strainer_log('PASSING_ACTIVERECORD', custom: { method: 'klass.update' })

@@ -3,6 +3,7 @@
 $LOAD_PATH.append File.expand_path('lib', __dir__)
 require 'strainer/identity'
 
+# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |spec|
   spec.name = Strainer::Identity.name
   spec.version = Strainer::Identity.version
@@ -46,3 +47,4 @@ Gem::Specification.new do |spec|
   spec.executables << 'strainer'
   spec.require_paths = ['lib']
 end
+# rubocop:enable Metrics/BlockLength

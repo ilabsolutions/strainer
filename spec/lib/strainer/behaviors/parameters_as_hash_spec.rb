@@ -3,12 +3,6 @@
 require 'spec_helper'
 require 'action_controller'
 
-module ActionController
-  class Parameters
-    def initialize(*); end
-  end
-end
-
 module Strainer
   module Behaviors
     RSpec.describe ParametersAsHash, behavior: true do

@@ -5,6 +5,7 @@ Dir[File.dirname(__FILE__) + '/behaviors/*.rb'].sort.each { |file| require file 
 module Strainer
   # Loads patched behaviors in different rails components
   class Patches
+    # rubocop:disable Metrics/MethodLength
     def self.setup!(component)
       case component
       when :action_controller
@@ -22,6 +23,7 @@ module Strainer
         )
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def self.load_behaviors(*args)
       args.each(&:init!)
