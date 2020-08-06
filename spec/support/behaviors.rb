@@ -14,6 +14,7 @@ end
 
 RSpec.configure do |config|
   config.before :suite do
+    FileUtils.mkdir_p('tmp')
     FileUtils.touch(MissingConfigurationMethods::LOG_PATH)
     Rails::Railtie::Configuration.include MissingConfigurationMethods
   end
