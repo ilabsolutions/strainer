@@ -57,6 +57,16 @@ module Strainer
         end
       end
 
+      let(:klazz_with_false_before_destroy) do
+        Class.new(application_record) do
+          before_destroy :returning_false
+
+          def returning_false
+            false
+          end
+        end
+      end
+
       context 'for before_save that returns false' do
         %I[
           klazz_with_false_returning_callback
@@ -69,6 +79,12 @@ module Strainer
             expect { send(klazz).new.save! }.to raise_exception(ActiveRecord::RecordNotSaved)
           end
         end
+      end
+
+      context 'for before_destroy that returns false' do
+        let(:model) { klazz_with_false_before_destroy.create }
+        it('raises on destroy!') { expect { model.destroy! }.to raise_exception(ActiveRecord::RecordNotDestroyed) }
+        it('fails to destroy') { expect(model.destroy).to be(false) }
       end
     end
   end
