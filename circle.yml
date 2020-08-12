@@ -68,4 +68,4 @@ jobs:
           command: |
             ./cc-test-reporter before-build
             bundle exec rake
-            ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
+            export CC_TEST_REPORTER_ID=9ffa69ff8adc21c2a8f4a25701e987a49ebe2b51727bd60417513d95c226d898 ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
