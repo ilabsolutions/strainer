@@ -45,10 +45,13 @@ module Strainer
       module EnablePassingActiveRecordInstancesToUpdateAll
         def update_all(updates)
           if updates.is_a?(Hash)
-            updates.transform_values! do |value|
-              ar_detected = value.is_a?(ActiveRecord::Base)
-              strainer_log('PASSING_ACTIVERECORD', custom: { method: 'update_all' })
-              ar_detected ? value.id : value
+            updates.deep_transform_values! do |value|
+              if value.is_a?(ActiveRecord::Base)
+                strainer_log('PASSING_ACTIVERECORD', custom: { method: 'update_all' })
+                value.id
+              else
+                value
+              end
             end
           end
 
