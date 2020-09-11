@@ -33,6 +33,10 @@ module Strainer
           klass == ::Hash || super
         end
         alias kind_of? is_a?
+
+        def convert_value_to_parameters(value)
+          value.is_a?(::ActionController::Parameters) ? value : super
+        end
       end
 
       module ReConvertValue
