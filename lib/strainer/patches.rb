@@ -21,6 +21,10 @@ module Strainer
           Behaviors::RelationQueryMethodChanges,
           Behaviors::ActiveRecordBeforeCallbackChanges
         )
+      when :action_mailer
+        load_behaviors(
+          Behaviors::MailerWithPathHelpers
+        )
       end
     end
     # rubocop:enable Metrics/MethodLength
