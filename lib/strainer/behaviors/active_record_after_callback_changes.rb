@@ -9,7 +9,6 @@ module Strainer
     class ActiveRecordAfterCallbackChanges < Strainer::RuntimeBehavior
       module InterceptDirtyCalls
         def changed?
-          binding.pry
           return saved_changes? if intercept_call?
 
           super
@@ -22,7 +21,6 @@ module Strainer
         end
 
         def attribute_changed?(attr_name, **options)
-          binding.pry
           return saved_change_to_attribute?(attr_name, **options) if intercept_call?
 
           super
