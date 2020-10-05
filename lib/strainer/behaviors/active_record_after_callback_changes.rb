@@ -43,7 +43,6 @@ module Strainer
         def in_app?
           return true if Rails.env.development? || Rails.env.test?
           return false if Rails.root.blank?
-          binding.pry
 
           # skip first 3 frames. 2 from this patch and 1 from the attribute_methods code.
           method_call_location = caller[3][/[^:]+/]
