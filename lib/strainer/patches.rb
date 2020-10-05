@@ -19,7 +19,8 @@ module Strainer
           Behaviors::RelationDelegationChanges,
           Behaviors::FinderChanges,
           Behaviors::RelationQueryMethodChanges,
-          Behaviors::ActiveRecordBeforeCallbackChanges
+          Behaviors::ActiveRecordBeforeCallbackChanges,
+          Behaviors::ActiveRecordAfterCallbackChanges
         )
       when :action_mailer
         load_behaviors(

@@ -5,23 +5,7 @@ require 'active_record'
 
 module Strainer
   module Behaviors
-    RSpec.describe ActiveRecordBeforeCallbackChanges, behavior: true do
-      before(:all) do
-        ActiveRecord::Migration.verbose = false
-
-        ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
-
-        ActiveRecord::Schema.define(version: 1) do
-          create_table :fakes do |t|
-            t.string :email, default: 'test@test.test'
-          end
-        end
-      end
-
-      after(:all) do
-        ActiveRecord::Base.connection.close
-      end
-
+    RSpec.describe ActiveRecordBeforeCallbackChanges, behavior: true, active_record: true do
       let(:application_record) do
         Class.new(ActiveRecord::Base) do
           intercept_rails4_callbacks
