@@ -5,7 +5,7 @@ require 'action_view/helpers/asset_tag_helper'
 module Strainer
   module Behaviors
 
-    class ActionViewImageTagHelperChanges < Strainer::RuntimeBehavior
+    class ActionViewImageTagChanges < Strainer::RuntimeBehavior
       module HandleNilImageTagSrc
         def image_tag(source, options={})
           return tag("img", options) if source.nil?
