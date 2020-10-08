@@ -18,7 +18,7 @@ module Strainer
       end
 
       def apply_patch!
-        ActionView::Helpers::AssetTagHelper.prepend(HandleNilImageTagSrc)
+        ActionView::Base.prepend(HandleNilImageTagSrc)
       end
     end
   end
