@@ -25,6 +25,10 @@ module Strainer
         load_behaviors(
           Behaviors::MailerWithPathHelpers
         )
+      when :action_view
+        load_behaviors(
+          Behaviors::ActionViewImageTagChanges
+        )
       end
     end
     # rubocop:enable Metrics/MethodLength
