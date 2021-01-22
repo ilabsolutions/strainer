@@ -2,8 +2,12 @@
 
 module Strainer
   module Behaviors
-
     class ParameterizeChanges < Strainer::RuntimeBehavior
+      # Monkey patches calls to parameterize to allow calling this like rails 4
+      # eg "Donald E. Knuth".parameterize('+') => "donald+e+knuth"
+      # Rails 6 calls work as usual without logging
+      # eg "Donald E. Knuth".parameterize => "donald-e-knuth"
+      # eg "Donald E. Knuth".parameterize(separator: '+') => "donald+e+knuth"
       module Rails4StyleParameterize
         include Strainer::Logable
 
