@@ -19,8 +19,10 @@ module Strainer
           BEFORE_CALLBACKS.each do |hook|
             define_singleton_method(hook) do |*args, **options, &block|
               callback_arg = args[0]
-              args[0] = wrap_callback(callback_arg) if can_intercept_callback?(callback_arg)
-              wrapped_block = wrap_callback_proc(block) if can_intercept_callback_block?(block)
+              unless options.delete(:skip_strainer)
+                args[0] = wrap_callback(callback_arg) if can_intercept_callback?(callback_arg)
+                wrapped_block = wrap_callback_proc(block) if can_intercept_callback_block?(block)
+              end
               super(*args, **options, &wrapped_block)
             end
           end
