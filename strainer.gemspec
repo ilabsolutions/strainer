@@ -22,14 +22,13 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.6.5'
   spec.add_dependency 'ougai', '~> 1.8.2'
-  spec.add_dependency 'rails', '>= 6.0', '< 6.1'
-  spec.add_dependency 'runcom', '~> 5.0'
+  spec.add_dependency 'rails', '>= 6.0'
+  spec.add_dependency 'runcom'
   spec.add_dependency 'synvert', '~> 0.9.0'
-  spec.add_dependency 'thor', '~> 0.20'
+  spec.add_dependency 'thor'
 
   spec.add_development_dependency 'bundler-audit', '~> 0.6'
   spec.add_development_dependency 'gemsmith', '~> 13.8'
-  spec.add_development_dependency 'git-cop', '~> 3.5'
   spec.add_development_dependency 'pry', '~> 0.12'
   spec.add_development_dependency 'pry-byebug', '~> 3.7'
   spec.add_development_dependency 'rails', '>= 4.2', '< 6.1'
