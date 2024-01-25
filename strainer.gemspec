@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'ougai', '~> 1.8.2'
   spec.add_dependency 'rails', '>= 6.0'
   spec.add_dependency 'runcom'
-  spec.add_dependency 'synvert', '~> 0.9.0'
+  spec.add_dependency 'synvert'
   spec.add_dependency 'thor'
 
   spec.add_development_dependency 'bundler-audit', '~> 0.6'
