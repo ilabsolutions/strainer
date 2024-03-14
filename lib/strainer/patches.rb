@@ -19,16 +19,7 @@ module Strainer
           Behaviors::ForcedReloading,
           Behaviors::RelationDelegationChanges,
           Behaviors::FinderChanges,
-          Behaviors::RelationQueryMethodChanges,
           Behaviors::ActiveRecordBeforeCallbackChanges
-        )
-      when :action_mailer
-        load_behaviors(
-          Behaviors::MailerWithPathHelpers
-        )
-      when :action_view
-        load_behaviors(
-          Behaviors::ActionViewImageTagChanges
         )
       end
     end
