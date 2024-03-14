@@ -15,7 +15,6 @@ module Strainer
         )
       when :active_record
         load_behaviors(
-          Behaviors::AbstractMysqlAdapter,
           Behaviors::ForcedReloading,
           Behaviors::RelationDelegationChanges,
           Behaviors::FinderChanges,
