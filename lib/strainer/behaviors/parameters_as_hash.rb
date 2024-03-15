@@ -44,7 +44,7 @@ module Strainer
 
         private
 
-        def convert_value(value, conversion = nil)
+        def convert_value(value, options = {})
           return value if value.is_a? ActionController::Parameters
 
           super
